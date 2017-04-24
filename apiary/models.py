@@ -5,29 +5,29 @@ from django.db.models import CharField, ForeignKey, ManyToManyField, Model
 class Network(Model):
 
     name = CharField(max_length=255, unique=True)
-    json = JSONField()
-    meta = JSONField()
+    json = JSONField(null=True)
+    meta = JSONField(null=True)
 
 
 class Node(Model):
 
     name = CharField(max_length=255, unique=True)
     network = ForeignKey(Network)
-    meta = JSONField()
+    meta = JSONField(null=True)
 
 
 class Sensor(Model):
 
     name = CharField(max_length=255, unique=True)
     nodes = ManyToManyField(Node)
-    meta = JSONField()
+    meta = JSONField(null=True)
 
 
 class Feature(Model):
 
     name = CharField(max_length=255, unique=True)
     sensors = ManyToManyField(Sensor)
-    meta = JSONField()
+    meta = JSONField(null=True)
 
 
 class Property(Model):
@@ -36,4 +36,4 @@ class Property(Model):
     unit = CharField(max_length=255)
     primitive = CharField(max_length=255)
     features = ForeignKey(Feature)
-    meta = JSONField()
+    meta = JSONField(null=True)
