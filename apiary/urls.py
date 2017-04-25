@@ -29,6 +29,6 @@ router.register(r'users', UserView)
 router.register(r'groups', GroupView)
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', include(router.urls))
+    url(r'^', include(router.urls)),
+    url(r'^admin/', admin.site.urls)
 ]

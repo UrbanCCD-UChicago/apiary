@@ -10,9 +10,17 @@ class NetworkSerializer(ModelSerializer):
 
 
 class NodeSerializer(ModelSerializer):
+
     class Meta:
         fields = '__all__'
         model = Node
+
+    class JSONAPIMeta:
+        included_resourced = ['network']
+
+    included_serializers = {
+        'network': NetworkSerializer
+    }
 
 
 class SensorSerializer(ModelSerializer):
