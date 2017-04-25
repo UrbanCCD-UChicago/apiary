@@ -6,9 +6,10 @@ from rest_framework_json_api.metadata import JSONAPIMetadata
 from rest_framework_json_api.renderers import JSONRenderer
 from rest_framework_json_api.parsers import JSONParser
 
-from .models import Network, Node, Sensor, Feature
+from .models import Network, Node, Sensor, Feature, Property
 from .serializers import NetworkSerializer, NodeSerializer, SensorSerializer
 from .serializers import FeatureSerializer, UserSerializer, GroupSerializer
+from .serializers import PropertySerializer
 
 
 class NetworkView(ModelViewSet):
@@ -33,6 +34,12 @@ class FeatureView(ModelViewSet):
 
     queryset = Feature.objects.all()
     serializer_class = FeatureSerializer
+
+
+class PropertyView(ModelViewSet):
+
+    queryset = Property.objects.all()
+    serializer_class = PropertySerializer
 
 
 class UserView(ModelViewSet):

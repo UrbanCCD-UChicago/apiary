@@ -12,6 +12,17 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+
+# Environment Variables
+APIARY_SECRET_KEY = os.environ.get('APIARY_SECRET_KEY') or 'changeme'
+APIARY_DEBUG = os.environ.get('APIARY_DEBUG') or False
+APIARY_DB_NAME = os.environ.get('APIARY_DB_NAME') or 'postgres'
+APIARY_DB_USER = os.environ.get('APIARY_DB_USER') or 'postgres'
+APIARY_DB_PASSWORD = os.environ.get('APIARY_DB_PASSWORD') or 'password'
+APIARY_DB_HOST = os.environ.get('APIARY_DB_HOST') or '127.0.0.1'
+APIARY_DB_PORT = os.environ.get('APIARY_DB_PORT') or '5432'
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,10 +31,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '20&*kw0wi&h%8(*tfh*g^w-7j^#)gb@fpx$%d&ao$gsng066o#'
+SECRET_KEY = APIARY_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = APIARY_DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -38,7 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    'django.contrib.gis'
 ]
 
 MIDDLEWARE = [
@@ -77,12 +89,12 @@ WSGI_APPLICATION = 'apiary.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': APIARY_DB_NAME,
+        'USER': APIARY_DB_USER,
+        'PASSWORD': APIARY_DB_PASSWORD,
+        'HOST': APIARY_DB_HOST,
+        'PORT': APIARY_DB_PORT,
     }
 }
 

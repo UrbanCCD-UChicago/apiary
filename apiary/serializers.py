@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework_json_api.serializers import ModelSerializer
-from .models import Network, Node, Sensor, Feature
+from .models import Network, Node, Sensor, Feature, Property
 
 
 class NetworkSerializer(ModelSerializer):
@@ -33,6 +33,12 @@ class FeatureSerializer(ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Feature
+
+
+class PropertySerializer(ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = Property
 
 
 class UserSerializer(ModelSerializer):

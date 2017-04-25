@@ -1,3 +1,5 @@
 django
 djangorestframework
 djangorestframework-jsonapi
+
+psycopg2
