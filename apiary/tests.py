@@ -1,7 +1,19 @@
-from django.test import LiveServerTestCase
+from django.test import LiveServerTestCase, TestCase
 from selenium.webdriver import Chrome
-from selenium import Keys
+from selenium.webdriver.common.keys import Keys
 from time import sleep
+
+
+class Unit(TestCase):
+
+    def test_index_renders_correct_template(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'index.html')
+
+
+    def test_register_node_redirects_if_not_logged_in(self):
+        response = self.client.get('/register_node/')
+        self.assertRedirects(response, '/login/')
 
 
 class Functional(LiveServerTestCase):
@@ -30,6 +42,7 @@ class Functional(LiveServerTestCase):
 
         # He spies a link that reads 'register a node' and clicks on it!
         self.browser.find_element_by_id('register_a_node').click()
+        sleep(0.25)
 
         # Because he is not logged in, he is redirected to the login page.
         self.assertEqual(self.browser.title, 'Log In')

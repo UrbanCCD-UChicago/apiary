@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
+from .views import index, register_node, login
 from .views import NetworkView, NodeView, SensorView, FeatureView, UserView
 from .views import GroupView
 
@@ -29,6 +30,9 @@ router.register(r'users', UserView)
 router.register(r'groups', GroupView)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^$', index),
+    url(r'^register_node/', register_node),
+    url(r'^login/', login),
+    url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls)
 ]
