@@ -21,10 +21,6 @@ def register_node(request):
     return redirect('/login/')
 
 
-def login(request):
-    return HttpResponse()
-
-
 class NetworkView(ModelViewSet):
 
     queryset = Network.objects.all()

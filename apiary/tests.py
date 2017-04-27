@@ -26,7 +26,7 @@ class Functional(LiveServerTestCase):
 
     def test_server_is_available(self):
         self.browser.get('http://localhost:8000')
-        self.assertIn('Api Root', self.browser.title)
+        self.assertIn('home', self.browser.title)
 
     def test_user_registration_and_node_submission(self):
 
@@ -45,7 +45,7 @@ class Functional(LiveServerTestCase):
         sleep(0.25)
 
         # Because he is not logged in, he is redirected to the login page.
-        self.assertEqual(self.browser.title, 'Log In')
+        self.assertEqual(self.browser.title, 'Log in')
 
         # He know he doesn't have an account, so he clicks on the sign-up link.
         self.browser.find_element_by_id('signup').click()

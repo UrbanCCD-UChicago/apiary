@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
-{% block body %}
+{% block title %}home{% endblock %}
+
+{% block content %}
 
 <div class="container-fluid">
-  <a href="#" id="register_a_node">Register a node</a>
+  <a href="{% url 'register_node' %}" id="register_a_node">Register a node</a>
 </div>
 
 {% endblock %}

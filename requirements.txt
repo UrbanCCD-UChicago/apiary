@@ -1,5 +1,8 @@
 django
+django-registration-redux
 djangorestframework
 djangorestframework-jsonapi
 
 psycopg2
+
+selenium

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'apiary',
     'rest_framework',
     'django.contrib.admin',
+    'registration',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -160,3 +161,9 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
 }
+
+
+# Global settings for registration framework
+# http://django-registration-redux.readthedocs.io/en/latest/
+
+ACCOUNT_ACTIVATION_DAYS = 7
