@@ -25,7 +25,7 @@ class Functional(LiveServerTestCase):
         self.browser.quit()
 
     def test_server_is_available(self):
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
         self.assertIn('home', self.browser.title)
 
     def test_user_registration_and_node_submission(self):
@@ -38,7 +38,7 @@ class Functional(LiveServerTestCase):
         # visualizations to boot.
 
         # He is directed to the apiary by some documentation.
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # He spies a link that reads 'register a node' and clicks on it!
         self.browser.find_element_by_id('register_a_node').click()
@@ -48,20 +48,25 @@ class Functional(LiveServerTestCase):
         self.assertEqual(self.browser.title, 'Log in')
 
         # He know he doesn't have an account, so he clicks on the sign-up link.
-        self.browser.find_element_by_id('signup').click()
-        self.assertEqual(self.browser.title, 'Sign Up')
+        self.browser.find_element_by_partial_link_text('Register').click()
+        self.assertIn('Register', self.browser.title)
+
+        # He signs up...
+        username_input = self.browser.find_element_by_id('id_username')
+        email_input = self.browser.find_element_by_id('id_email')
+        password_input = self.browser.find_element_by_id('id_password1')
+        confirmation_input = self.browser.find_element_by_id('id_password2')
+
+        username_input.send_keys('jesse')
+        email_input.send_keys('jesse@email.com')
+        password_input.send_keys('testallthethings')
+        confirmation_input.send_keys('testallthethings')
+
+        xpath = '//input[@type="submit"]'
+        self.browser.find_element_by_xpath(xpath).click()
 
         # After typing in a username and password, he is forwarded to the
         # node registration process
-        username_input = self.browser.find_element_by_id('username')
-        password_input = self.browser.find_element_by_id('password').click()
-
-        username_input.send_keys('jesse')
-        password_input.send_keys('testallthethings')
-
-        signup_button = self.browser.find_element_by_id('signup-button')
-        signup_button.send_keys(Keys.ENTER)
-
         self.assertEqual(self.browser.title, 'Register a node')
 
         # First he is asked information about the features his node reports.

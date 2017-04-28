@@ -31,7 +31,7 @@ router.register(r'groups', GroupView)
 
 urlpatterns = [
     url(r'^$', index),
-    url(r'^', include('registration.backends.default.urls')),
+    url(r'^', include('registration.backends.simple.urls')),
     url(r'^register_node/', register_node, name='register_node'),
     url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls)
