@@ -1,3 +1,7 @@
+import json
+
+from apiary.forms import FeatureForm
+from django.contrib.auth.models import User, Group
 from django.test import LiveServerTestCase, TestCase
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.keys import Keys
@@ -14,6 +18,52 @@ class Unit(TestCase):
     def test_register_node_redirects_if_not_logged_in(self):
         response = self.client.get('/register_node/')
         self.assertRedirects(response, '/login/')
+
+    def test_register_node_renders_template_if_logged_in(self):
+        user = User.objects.create(username='jesse')
+        user.set_password('foo')
+        user.save()
+
+        self.client.login(username='jesse', password='foo')
+        response = self.client.get('/register_node/')
+        self.assertTemplateUsed(response, 'register_node.html')
+
+
+    def test_feature_form_with_valid_data(self):
+        props = [{'name': 'external', 'type': 'float'}]
+        data = {'name': 'temperature', 'observed_properties': json.dumps(props)}
+        form = FeatureForm(data=data)
+        self.assertTrue(form.is_valid())
+
+    def test_feature_form_with_invalid_type(self):
+        props = [{'name': 'external', 'type': 'plumbus'}]
+        data = {'name': 'temperature', 'observed_properties': json.dumps(props)}
+        form = FeatureForm(data=data)
+        self.assertFalse(form.is_valid())
+
+    def test_feature_form_with_invalid_property_keys(self):
+        props = [{'name': 'external', 'plumbus': 'float'}]
+        data = {'name': 'temperature', 'observed_properties': json.dumps(props)}
+        form = FeatureForm(data=data)
+        self.assertFalse(form.is_valid())
+
+    def test_feature_form_with_invalid_property_format(self):
+        props = [{'name': 'external'}]
+        data = {'name': 'temperature', 'observed_properties': json.dumps(props)}
+        form = FeatureForm(data=data)
+        self.assertFalse(form.is_valid())
+
+    def test_feature_form_with_invalid_format(self):
+        props = [{'name': 'external', 'type': 'float'}]
+        data = {'name': 'temperature', 'plumbus': json.dumps(props)}
+        form = FeatureForm(data=data)
+        self.assertFalse(form.is_valid())
+
+    def test_feature_form_with_missing_keys(self):
+        props = [{'name': 'external', 'type': 'float'}]
+        data = {'observed_properties': json.dumps(props)}
+        form = FeatureForm(data=data)
+        self.assertFalse(form.is_valid())
 
 
 class Functional(LiveServerTestCase):
@@ -65,9 +115,10 @@ class Functional(LiveServerTestCase):
         xpath = '//input[@type="submit"]'
         self.browser.find_element_by_xpath(xpath).click()
 
-        # After typing in a username and password, he is forwarded to the
-        # node registration process
-        self.assertEqual(self.browser.title, 'Register a node')
+        # After typing in a username and password, he is returned home
+        # He clicks on register node again
+        self.browser.find_element_by_id('register_a_node').click()
+        self.assertEqual(self.browser.title, 'Register')
 
         # First he is asked information about the features his node reports.
         # Since he doesn't see "gas concentration", he adds his own

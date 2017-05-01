@@ -1,3 +1,4 @@
+from apiary.validators import validate_feature
 from django.contrib.postgres.fields import JSONField
 from django.contrib.gis.db.models import CharField, ForeignKey, ManyToManyField
 from django.contrib.gis.db.models import PointField, Model, DO_NOTHING
@@ -46,6 +47,9 @@ class Feature(Model):
 
     class Meta:
         db_table = 'sensor__feature_metadata'
+
+    def clean(self):
+        validate_feature(self)
 
     def __str__(self):
         return self.name

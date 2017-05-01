@@ -18,7 +18,9 @@ def index(request):
 
 
 def register_node(request):
-    return redirect('/login/')
+    if not request.user.is_authenticated:
+        return redirect('/login/')
+    return render(request, 'register_node.html')
 
 
 class NetworkView(ModelViewSet):
