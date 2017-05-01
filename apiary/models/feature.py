@@ -42,10 +42,10 @@ def validate_feature(feature):
         property_keys = property_dict.keys()
 
         if 'type' not in property_keys or 'name' not in property_keys:
-            msg = "Improperly formatted property: {} - a property needs both " \
-                  "'name' and 'type' keys.".format(property_dict)
+            msg = "Misformatted property: {}".format(property_dict)
+            msg += " - a property needs both 'name' and 'type' keys."
             raise ValidationError(msg)
-            
+
         value = property_dict["type"].upper()
         type_aliases = set(redshift_type_map.keys())
         type_standards = set(redshift_type_map.values())
