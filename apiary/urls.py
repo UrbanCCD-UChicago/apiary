@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from organizations.backends import invitation_backend
 from rest_framework.routers import DefaultRouter
 from .views import index, register_node
 from .views import NetworkView, NodeView, SensorView, FeatureView, UserView
@@ -32,6 +33,8 @@ router.register(r'groups', GroupView)
 urlpatterns = [
     url(r'^$', index),
     url(r'^', include('registration.backends.simple.urls')),
+    url(r'^accounts/', include('organizations.urls')),
+    url(r'^invitations/', include(invitation_backend().get_urls())),
     url(r'^register_node/', register_node, name='register_node'),
     url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls)

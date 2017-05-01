@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'registration',
     'django.contrib.auth',
+    'organizations',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -167,3 +168,9 @@ REST_FRAMEWORK = {
 # http://django-registration-redux.readthedocs.io/en/latest/
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+
+# Global serttings for organization framework
+# https://github.com/bennylope/django-organizations/#auto-slug-field
+
+ORGS_SLUGFIELD = 'django_extensions.db.fields.AutoSlugField'

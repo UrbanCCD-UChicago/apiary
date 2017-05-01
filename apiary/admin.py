@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Network, Node, Sensor, Feature
+from apiary.models import Network, Node, Sensor, Feature
 
 admin.site.register(Network)
 admin.site.register(Node)
