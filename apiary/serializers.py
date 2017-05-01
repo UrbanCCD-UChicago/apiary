@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework_json_api.serializers import ModelSerializer
 from rest_framework_json_api.serializers import ValidationError
 from .models import Network, Node, Sensor, Feature
-from .validators import validate_sensor, validate_feature
+# from .validators import validate_sensor, validate_feature
 
 
 class NetworkSerializer(ModelSerializer):
@@ -23,8 +23,8 @@ class SensorSerializer(ModelSerializer):
         fields = '__all__'
         model = Sensor
 
-    def validate(self, data):
-        return validate_sensor(data)
+    # def validate(self, data):
+    #     return validate_sensor(data)
 
 
 class FeatureSerializer(ModelSerializer):
@@ -32,8 +32,8 @@ class FeatureSerializer(ModelSerializer):
         fields = '__all__'
         model = Feature
 
-    def validate(self, data):
-        return validate_feature(data)
+    # def validate(self, data):
+    #     return validate_feature(data)
 
 
 class UserSerializer(ModelSerializer):
