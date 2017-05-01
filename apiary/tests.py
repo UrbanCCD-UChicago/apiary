@@ -120,21 +120,13 @@ class Functional(LiveServerTestCase):
         self.browser.find_element_by_id('register_a_node').click()
         self.assertEqual(self.browser.title, 'Register')
 
-        # First he is asked information about the features his node reports.
-        # Since he doesn't see "gas concentration", he adds his own
-        feature_name_input = self.browser.find_element_by_id('feature-name')
-        feature_name_input.send_keys('gas_concentration')
-
-        # He also submits the data type values and units of measurement
-
-        # After this, he is asked about the sensor. He puts in the name of the
-        # sensor, and what feature its reports map to.
-
-        # From here he is asked to name his node.
-
         # Because he is not part of any existing network, he is asked to create
         # one. An optional network name is generated for him if he wanted to
         # use it.
+
+        # He is asked to name his node.
+
+        # Finally, he is asked what sensors his node has on board.
 
         # From there he follows the docs on how to submit his obervations to
         # plenario....
