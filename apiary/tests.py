@@ -1,6 +1,7 @@
 import json
 
-from apiary.forms import FeatureForm
+from apiary.models import Network, Node, Sensor, Feature
+from apiary.forms import NodeForm, FeatureForm
 from django.contrib.auth.models import User, Group
 from django.test import LiveServerTestCase, TestCase
 from selenium.webdriver import Chrome
@@ -28,6 +29,46 @@ class Unit(TestCase):
         response = self.client.get('/register_node/')
         self.assertTemplateUsed(response, 'register_node.html')
 
+    def test_node_registration_form(self):
+        Network.objects.create(name='aotjesse')
+        Sensor.objects.create(name='tmp112')
+        Sensor.objects.create(name='tmp421')
+        Sensor.objects.create(name='lgt000')
+
+        data = {
+            'name': 'mynode',
+            'network': 'aotjesse',
+            'location': '(0.0, 0.0)',
+            'sensors': [
+                'tmp112',
+                'tmp421',
+                'lgt000'
+            ]
+        }
+
+        form = NodeForm(data=data)
+        import pdb; pdb.set_trace()
+        self.assertTrue(form.is_valid())
+
+    def test_node_registration_view(self):
+        Network.objects.create(name='aotjesse')
+        Sensor.objects.create(name='tmp112')
+        Sensor.objects.create(name='tmp421')
+        Sensor.objects.create(name='lgt000')
+
+        data = {
+            'name': 'mynode',
+            'network': 'aotjesse',
+            'location': '(0.0, 0.0)',
+            'sensors': [
+                'tmp112',
+                'tmp421',
+                'lgt000'
+            ]
+        }
+
+        self.client.post('/register_node/', data=data)
+        self.assertEqual(Node.objects.count(), 1)
 
     def test_feature_form_with_valid_data(self):
         props = [{'name': 'external', 'type': 'float'}]
@@ -123,10 +164,24 @@ class Functional(LiveServerTestCase):
         # Because he is not part of any existing network, he is asked to create
         # one. An optional network name is generated for him if he wanted to
         # use it.
+        network_input = self.browser.find_element_by_id('id_network')
+        network_input.send_keys('aotjesse')
 
         # He is asked to name his node.
+        node_input = self.browser.find_element_by_id('id_node')
+        network_input.send_keys('jessesnode')
 
         # Finally, he is asked what sensors his node has on board.
+        sensors_input = self.browser.find_element_by_id('id_sensor')
+        sensors_input.click()
+
+        # Clicking shows a dropdown of available sensors...
+
+        # He clicks a few.
+
+        # Finally he submits!
+        xpath = '//input[@type="submit"]'
+        self.browser.find_element_by_xpath(xpath).click()
 
         # From there he follows the docs on how to submit his obervations to
         # plenario....

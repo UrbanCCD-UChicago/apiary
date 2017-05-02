@@ -8,6 +8,7 @@ from rest_framework_json_api.metadata import JSONAPIMetadata
 from rest_framework_json_api.renderers import JSONRenderer
 from rest_framework_json_api.parsers import JSONParser
 
+from .forms import NodeForm
 from .models import Network, Node, Sensor, Feature
 from .serializers import NetworkSerializer, NodeSerializer, SensorSerializer
 from .serializers import FeatureSerializer, UserSerializer, GroupSerializer
@@ -20,7 +21,17 @@ def index(request):
 def register_node(request):
     if not request.user.is_authenticated:
         return redirect('/login/')
-    return render(request, 'register_node.html')
+
+    if request.method == 'POST':
+        form = NodeForm(request.POST)
+    else:
+        form = NodeForm()
+
+    data = {
+        'form': form
+    }
+
+    return render(request, 'register_node.html', data)
 
 
 class NetworkView(ModelViewSet):
