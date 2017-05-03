@@ -9,6 +9,7 @@ class Feature(Model):
 
     class Meta:
         db_table = 'sensor__feature_metadata'
+        managed = False
 
     def clean(self):
         validate_feature(self)

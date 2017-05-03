@@ -11,6 +11,7 @@ class SensorFeatureToNetwork(Model):
 
     class Meta:
         db_table = 'sensor__feature_to_network'
+        managed = False
 
 
 class SensorSensorToNode(Model):
@@ -20,3 +21,4 @@ class SensorSensorToNode(Model):
 
     class Meta:
         db_table = 'sensor__sensor_to_node'
+        managed = False

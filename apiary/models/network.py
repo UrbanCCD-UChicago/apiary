@@ -8,6 +8,7 @@ class Network(Model):
 
     class Meta:
         db_table = 'sensor__network_metadata'
+        managed = False
 
     def __str__(self):
         return self.name

@@ -16,6 +16,7 @@ class Node(Model):
     class Meta:
         db_table = 'sensor__node_metadata'
         unique_together = (('id', 'sensor_network'),)
+        managed = False
 
     def __str__(self):
         return self.id
