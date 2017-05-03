@@ -3,6 +3,7 @@ django-extensions
 django-organizations
 django-registration-redux
 djangorestframework
+djangorestframework-gis
 djangorestframework-jsonapi
 
 psycopg2

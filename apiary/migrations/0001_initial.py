@@ -16,49 +16,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Feature',
-            fields=[
-                ('name', models.CharField(max_length=255, primary_key=True, serialize=False)),
-                ('observed_properties', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
-            ],
-            options={
-                'db_table': 'sensor__feature_metadata',
-            },
-        ),
-        migrations.CreateModel(
-            name='Network',
-            fields=[
-                ('name', models.CharField(max_length=255, primary_key=True, serialize=False)),
-                ('info', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
-            ],
-            options={
-                'db_table': 'sensor__network_metadata',
-            },
-        ),
-        migrations.CreateModel(
-            name='Node',
-            fields=[
-                ('id', models.CharField(max_length=255, primary_key=True, serialize=False)),
-                ('location', django.contrib.gis.db.models.fields.PointField(srid=4326)),
-                ('info', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
-                ('sensor_network', models.ForeignKey(db_column='sensor_network', on_delete=django.db.models.deletion.DO_NOTHING, to='apiary.Network')),
-            ],
-            options={
-                'db_table': 'sensor__node_metadata',
-            },
-        ),
-        migrations.CreateModel(
-            name='Sensor',
-            fields=[
-                ('name', models.CharField(max_length=255, primary_key=True, serialize=False)),
-                ('observed_properties', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
-                ('info', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
-            ],
-            options={
-                'db_table': 'sensor__sensor_metadata',
-            },
-        ),
         migrations.AddField(
             model_name='node',
             name='sensors',
