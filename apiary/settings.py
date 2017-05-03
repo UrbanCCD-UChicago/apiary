@@ -44,6 +44,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'apiary',
     'rest_framework',
+    'rest_framework_gis',
     'django.contrib.admin',
     'registration',
     'django.contrib.auth',

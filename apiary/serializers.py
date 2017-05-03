@@ -1,8 +1,36 @@
 from collections import defaultdict
 from django.contrib.auth.models import User, Group
+from rest_framework_gis.serializers import GeometryField
 from rest_framework_json_api.serializers import ModelSerializer
 from rest_framework_json_api.serializers import ValidationError
+from rest_framework_json_api.serializers import CharField, JSONField
 from .models import Network, Node, Sensor, Feature
+
+
+location_help_text = '''
+Point represented by GeoJSON, WKT EWKT or HEXEWKB<br><br>
+GeoJSON<br>
+<pre>
+{
+    "type": "Point",
+    "coordinates": [
+        -87.67776489257812,
+        41.86137915587359
+    ]
+}
+</pre>'''
+
+
+observed_properties_help_text = '''
+A mapping of the names of values sensors report to properties on features of
+interest<br><br>
+Ex: your sensor reports internal temperature as something called 'heat_value'
+<pre>
+{
+    "internal_heat": "temperature.internal_temperature"
+}
+</pre>
+'''
 
 
 class NetworkSerializer(ModelSerializer):
@@ -13,14 +41,21 @@ class NetworkSerializer(ModelSerializer):
 
 class NodeSerializer(ModelSerializer):
     class Meta:
-        fields = '__all__'
+        fields = ('sensor_network', 'id', 'location', 'sensors', 'info')
         model = Node
+
+    id = CharField()
+    location = GeometryField(help_text=location_help_text)
+    info = JSONField(help_text='JSON for miscellaneous things about the node')
 
 
 class SensorSerializer(ModelSerializer):
     class Meta:
-        fields = '__all__'
+        fields = ('name', 'observed_properties', 'info')
         model = Sensor
+
+    observed_properties = JSONField(help_text=observed_properties_help_text)
+    info = JSONField(help_text='JSON for miscellaneous things about the sensor')
 
     def validate(self, data):
         Sensor(**data).clean()

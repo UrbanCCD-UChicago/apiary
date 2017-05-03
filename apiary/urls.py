@@ -31,11 +31,7 @@ router.register(r'users', UserView)
 router.register(r'groups', GroupView)
 
 urlpatterns = [
-    url(r'^$', index),
     url(r'^', include('registration.backends.simple.urls')),
-    url(r'^accounts/', include('organizations.urls')),
-    url(r'^invitations/', include(invitation_backend().get_urls())),
-    url(r'^register_node/', register_node, name='register_node'),
-    url(r'^api/', include(router.urls)),
+    url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls)
 ]
