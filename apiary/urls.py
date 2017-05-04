@@ -17,7 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
-from apiary.views import GroupView
+from apiary.views import index, GroupView
 from apiary.views import NetworkView, NodeView, SensorView, FeatureView, UserView
 
 router = DefaultRouter()
@@ -29,7 +29,7 @@ router.register(r'users', UserView)
 router.register(r'groups', GroupView)
 
 urlpatterns = [
-    url(r'^', include('registration.backends.simple.urls')),
-    url(r'^', include(router.urls)),
+    url(r'^$', index, name='index'),
+    url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls)
 ]

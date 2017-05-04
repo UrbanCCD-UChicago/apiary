@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
@@ -6,6 +7,10 @@ from rest_framework_json_api.views import ModelViewSet
 from .models import Network, Node, Sensor, Feature, SensorSensorToNode
 from .serializers import FeatureSerializer, UserSerializer, GroupSerializer
 from .serializers import NetworkSerializer, NodeSerializer, SensorSerializer
+
+
+def index(request):
+    return render(request, 'index.html')
 
 
 class NetworkView(ModelViewSet):
