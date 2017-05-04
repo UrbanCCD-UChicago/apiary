@@ -1,11 +1,9 @@
-from collections import defaultdict
 from django.contrib.auth.models import User, Group
 from rest_framework_gis.serializers import GeometryField
-from rest_framework_json_api.serializers import ModelSerializer
-from rest_framework_json_api.serializers import ValidationError
 from rest_framework_json_api.serializers import CharField, JSONField
-from .models import Network, Node, Sensor, Feature
+from rest_framework_json_api.serializers import ModelSerializer, ResourceRelatedField
 
+from .models import Network, Node, Sensor, Feature
 
 location_help_text = '''
 Point represented by GeoJSON, WKT EWKT or HEXEWKB<br><br>
@@ -46,6 +44,10 @@ class NodeSerializer(ModelSerializer):
 
     id = CharField()
     location = GeometryField(help_text=location_help_text)
+    sensors = ResourceRelatedField(
+        queryset=Sensor.objects,
+        many=True
+    )
     info = JSONField(help_text='JSON for miscellaneous things about the node')
 
 

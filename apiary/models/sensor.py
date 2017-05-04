@@ -9,7 +9,6 @@ class Sensor(Model):
 
     class Meta:
         db_table = 'sensor__sensor_metadata'
-        managed = False
 
     def __str__(self):
         return self.name
