@@ -3,12 +3,16 @@
         <span>
         </span>
         <ul class="nav navbar-nav pull-left">
-            <li><a href="/"><strong>APIARY</strong></a></li>
+            <li><a href="/"><strong>PLENARIO APIARY</strong></a></li>
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li><a href="/api"><strong>API</strong></a></li>
             <li><a href="https://github.com/UrbanCCD-UChicago/apiary"><strong>CODE</strong></a></li>
-            <li><a href="/admin/login"><strong>LOGIN</strong></a></li>
+            {% if user.is_authenticated %}
+              <li><a href="/admin/logout"><strong>LOGOUT</strong></a></li>
+            {% else %}
+              <li><a href="/admin/login"><strong>LOGIN</strong></a></li>
+            {% endif %}
         </ul>
     </div>
 </div>
