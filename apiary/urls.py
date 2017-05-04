@@ -15,12 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from organizations.backends import invitation_backend
 from rest_framework.routers import DefaultRouter
-from .views import index, register_node
-from .views import NetworkView, NodeView, SensorView, FeatureView, UserView
-from .views import GroupView
 
+from apiary.views import GroupView
+from apiary.views import NetworkView, NodeView, SensorView, FeatureView, UserView
 
 router = DefaultRouter()
 router.register(r'networks', NetworkView)

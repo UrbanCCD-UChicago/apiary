@@ -1,39 +1,11 @@
 from django.contrib.auth.models import User, Group
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED
-from rest_framework.parsers import FormParser, MultiPartParser
-from rest_framework.renderers import BrowsableAPIRenderer
 from rest_framework_json_api.views import ModelViewSet
-from rest_framework_json_api.metadata import JSONAPIMetadata
-from rest_framework_json_api.renderers import JSONRenderer
-from rest_framework_json_api.parsers import JSONParser
 
-from .forms import NodeForm
 from .models import Network, Node, Sensor, Feature, SensorSensorToNode
-from .serializers import NetworkSerializer, NodeSerializer, SensorSerializer
 from .serializers import FeatureSerializer, UserSerializer, GroupSerializer
-
-
-def index(request):
-    return render(request, 'index.html')
-
-
-def register_node(request):
-    if not request.user.is_authenticated:
-        return redirect('/login/')
-
-    if request.method == 'POST':
-        form = NodeForm(request.POST)
-    else:
-        form = NodeForm()
-
-    data = {
-        'form': form
-    }
-
-    return render(request, 'register_node.html', data)
+from .serializers import NetworkSerializer, NodeSerializer, SensorSerializer
 
 
 class NetworkView(ModelViewSet):
