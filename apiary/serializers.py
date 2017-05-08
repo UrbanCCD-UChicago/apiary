@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework_gis.serializers import GeometryField
-from rest_framework_json_api.serializers import CharField, JSONField
+from rest_framework_json_api.serializers import CharField, JSONField, PrimaryKeyRelatedField
 from rest_framework_json_api.serializers import ModelSerializer, ResourceRelatedField
 
 from .models import Network, Node, Sensor, Feature
@@ -43,11 +43,9 @@ class NodeSerializer(ModelSerializer):
         model = Node
 
     id = CharField()
+    sensor_network = PrimaryKeyRelatedField(queryset=Network.objects)
     location = GeometryField(help_text=location_help_text)
-    sensors = ResourceRelatedField(
-        queryset=Sensor.objects,
-        many=True
-    )
+    sensors = PrimaryKeyRelatedField(queryset=Sensor.objects, many=True)
     info = JSONField(help_text='JSON for miscellaneous things about the node')
 
 

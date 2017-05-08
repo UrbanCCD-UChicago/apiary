@@ -29,7 +29,7 @@ class NodeView(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         headers = self.get_success_headers(serializer.data)
 
-        network_id = serializer.data['sensor_network']['id']
+        network_id = serializer.data['sensor_network']
         network = Network.objects.get(pk=network_id)
         node_id = serializer.data['id']
         node_location = str(serializer.data['location'])
@@ -37,8 +37,8 @@ class NodeView(ModelViewSet):
 
         node = Node.objects.create(id=node_id, sensor_network=network, location=node_location, info=node_info)
 
-        for sensor in serializer.data['sensors']:
-            sensor = Sensor.objects.get(pk=sensor['id'])
+        for sensor_pk in serializer.data['sensors']:
+            sensor = Sensor.objects.get(pk=sensor_pk)
             SensorSensorToNode.objects.create(node=node, sensor=sensor, network=network)
 
         return Response(serializer.data, status=HTTP_201_CREATED, headers=headers)
