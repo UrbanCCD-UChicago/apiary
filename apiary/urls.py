@@ -23,7 +23,7 @@ from apiary.views import NetworkView, NodeView, SensorView, FeatureView, UserVie
 router = DefaultRouter()
 router.register(r'networks', NetworkView)
 router.register(r'nodes', NodeView)
-router.register(r'sensor', SensorView)
+router.register(r'sensors', SensorView)
 router.register(r'features', FeatureView)
 router.register(r'users', UserView)
 router.register(r'groups', GroupView)
