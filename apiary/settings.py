@@ -37,8 +37,9 @@ SECRET_KEY = APIARY_SECRET_KEY
 DEBUG = APIARY_DEBUG
 
 ALLOWED_HOSTS = [
-    "apiary-env.us-east-1.elasticbeanstalk.com", 
-    "apiary.plenar.io"
+    "apiary-env.us-east-1.elasticbeanstalk.com",
+    "apiary.plenar.io",
+    "localhost"
 ]
 
 
