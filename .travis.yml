@@ -11,3 +11,13 @@ python: 3.4
 services:
 - postgresql
 script: python manage.py test
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: AKIAIKODRI2265OXMWRA
+  secret_access_key:
+    secure: ujryQoiAWIyatVTKth97Q8yXtj0ux+hIn3Zz43UBmvb+cUFT6ysIbRgMYiBRrIvEBNpNuEoZCtHAjOwvBnPi/MSX3Zs/pcG876s5sVSlnVPWoUl5gSxP6PFayBp7O3Ok3At8o/OWO2GbA8x23jtBUU5OE//4/3Ubg2k7Ro1Ofn5Ql5Ysy05LiyuA0Dw7skSGexjWef0gfFMm1pj5k2u4JsYBt/5ERiRfTgggbY0j7fu6DCbqn0W/jysaYrlYF0bsVraiwQcjmtfwBi09jAsq7Qpc4BAtEpDcOX3OyMUeEOYgxDlxAPLdOVo/6wUlIsYH2M6VXWfFBZMKDqgM7Ep5geY5dbclN94fN2CoLFkhYaWObhifq073o8BpF64+fLEEKOJs6IWrp+Doau+QDi5zrv4t5rqnijf2ycRoymLU8Plo1IoQK5qp4+qqRh2a2yKBwIGtt57kUK7iWu49p6v2vPqhbv3F3nNx8tbKiROgtOW5tOYRNHEPK87Fi6FwulxM5l8BzcsPDJKTgGuDkl5y5qPEhv/GG7qMHVEyvg1Fgw8yaKdlvDlmGVzL2mMKlbiN5kJsWbX7NCu/SJqM5jqLRh3jmNghal3lgOyB/QjU/RjQ1YE7W6SxJCuaiR/RUG/zFS6RlBufXnBeszHrYUwUL4ozLrz9+rdxZR7nxU3bqeM=
+  region: us-east-1
+  app: apiary
+  env: apiary-env
+  on:
+    repo: UrbanCCD-UChicago/apiary
